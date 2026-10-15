@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Bán Hàng DHA</title>
+  <style>
+    /* Reset cơ bản */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      color: #000;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #d1e8ff 0%, #9dcaff 100%);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid #8b00ff; /* tím */
+    }
+    header .brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #000;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    nav a:hover {
+      color: #fff;
+      background-color: #ff7f50; /* cam */
+    }
+
+    /* Thanh tìm kiếm */
+    .search-container {
+      margin: 15px 30px;
+      display: flex;
+      justify-content: center;
+    }
+    .search-container input[type="text"] {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 2px solid #00cc44; /* xanh lá */
+      border-radius: 25px 0 0 25px;
+      outline: none;
+    }
+    .search-container button {
+      padding: 10px 20px;
+      background-color: #ff69b4; /* hồng */
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 0 25px 25px 0;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    .search-container button:hover {
+      background-color: #e0559e;
+    }
+
+    /* Bảng sản phẩm */
+    main {
+      flex-grow: 1;
+      padding: 20px 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 2px solid #ffcc00; /* vàng */
+      padding: 12px 15px;
+      text-align: center;
+      font-weight: 600;
+    }
+    th {
+      background: linear-gradient(45deg, #6a5acd 0%, #7fffd4 100%); /* tím đến xanh dương nhạt */
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+
+    /* Mô tả & thông số kỹ thuật */
+    .product-details {
+      margin-top: 30px;
+      border: 2px solid #ff7f50; /* cam */
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff0f5; /* hồng nhạt */
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .product-details h2 {
+      color: #333366; /* xanh dương đậm */
+      margin-bottom: 15px;
+    }
+    .product-details p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    /* Nút nổi bật */
+    .btn-group {
+      margin-top: 15px;
+    }
+    button.buy-btn, button.cart-btn {
+      cursor: pointer;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      margin-right: 15px;
+      transition: transform 0.2s ease;
+    }
+    button.buy-btn {
+      background-color: #32cd32; /* xanh lá cây */
+      color: white;
+    }
+    button.buy-btn:hover {
+      background-color: #28a428;
+      transform: scale(1.05);
+    }
+    button.cart-btn {
+      background-color: #ffcc00; /* vàng */
+      color: #333;
+    }
+    button.cart-btn:hover {
+      background-color: #e6b800;
+      transform: scale(1.05);
+    }
+
+    /* Thông tin liên hệ nhanh */
+    .contact-info {
+      background-color: #add8e6; /* xanh dương nhạt */
+      padding: 20px 30px;
+      text-align: center;
+      border-top: 3px solid #ff69b4; /* hồng */
+      font-weight: 600;
+      color: #000;
+      font-size: 1rem;
+    }
+    .contact-info a {
+      color: #d2691e; /* cam */
+      font-weight: 700;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background-color: #f9f9f9;
+      padding: 30px 40px;
+      margin: 40px auto;
+      max-width: 900px;
+      border-radius: 15px;
+      border: 2px solid #9370db; /* tím */
+      color: #333366;
+    }
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+    }
+    .testimonial-item {
+      margin-bottom: 20px;
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+    .testimonial-item:last-child {
+      margin-bottom: 0;
+    }
+    .testimonial-author {
+      text-align: right;
+      font-weight: 700;
+      margin-top: 5px;
+      color: #ff69b4;
+    }
+
+    /* Review & Q&A */
+    .review-qna {
+      max-width: 900px;
+      margin: 0 auto 50px;
+      padding: 20px;
+      border: 2px solid #32cd32; /* xanh lá cây */
+      border-radius: 15px;
+      background-color: #e6ffe6;
+      color: #004d00;
+    }
+    .review-qna h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .review, .qna {
+      margin-bottom: 20px;
+    }
+    .review p, .qna p {
+      margin-bottom: 5px;
+    }
+    .review strong {
+      color: #228b22;
+    }
+    .qna strong {
+      color: #006400;
+    }
+
+    /* AI Agent Chatbot */
+    #chatbot-container {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      width: 320px;
+      max-height: 480px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    #chatbot-header {
+      background: linear-gradient(90deg, #9dcaff, #d1e8ff);
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #000;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    #chatbot-header img {
+      width: 28px;
+      height: 28px;
+    }
+    #chatbot-messages {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f0f8ff;
+    }
+    .message {
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      max-width: 80%;
+      font-size: 0.9rem;
+      line-height: 1.3;
+      user-select: text;
+    }
+    .user-message {
+      background-color: #d1e8ff;
+      color: #000;
+      align-self: flex-end;
+    }
+    .agent-message {
+      background-color: #6a5acd;
+      color: #fff;
+      align-self: flex-start;
+    }
+    #chatbot-input-area {
+      display: flex;
+      padding: 10px 15px;
+      border-top: 2px solid #9dcaff;
+      background-color: #e0f0ff;
+    }
+    #chatbot-input {
+      flex-grow: 1;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: 1px solid #7fa8ff;
+      outline: none;
+      font-size: 1rem;
+    }
+    #chatbot-send {
+      margin-left: 12px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #chatbot-send:hover {
+      background-color: #e0559e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with Brand and Navigation -->
+  <header>
+    <div class="brand">DHA Retail</div>
+    <nav>
+      <a href="#products">Danh mục sản phẩm</a>
+      <a href="#about">Giới thiệu</a>
+      <a href="#blog">Tin tức / Blog</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </header>
+
+  <!-- Search bar -->
+  <div class="search-container">
+    <input id="search-input" type="text" placeholder="Tìm kiếm sản phẩm..." />
+    <button id="search-btn">Tìm kiếm</button>
+  </div>
+
+  <!-- Main content: Product table and details -->
+  <main>
+    <section id="products">
+      <h2 style="text-align:center; margin-bottom: 20px; color:#6a5acd;">Danh sách sản phẩm</h2>
+      <table id="product-table" aria-label="Bảng sản phẩm">
+        <thead>
+          <tr>
+            <th style="color:#ff69b4;">Tên sản phẩm</th>
+            <th style="color:#ff7f50;">Giá</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Loa Bluetooth</td>
+            <td>2,300,000 đồng</td>
+          </tr>
+          <tr>
+            <td>Máy Tính</td>
+            <td>50,500,000 đồng</td>
+          </tr>
+          <tr>
+            <td>Điện thoại Iphone 18 Pro Max</td>
+            <td>72,000,000 đồng</td>
+          </tr>
+          <tr>
+            <td>Tai nghe</td>
+            <td>3,000,000 đồng</td>
+          </tr>
+          <tr>
+            <td>Bàn phím</td>
+            <td>2,000,000 đồng</td>
+          </tr>
+          <tr>
+            <td>Chuột điện tử</td>
+            <td>6,000,000 đồng</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="product-details" id="product-details">
+        <h2>Mô tả chi tiết & Thông số kỹ thuật</h2>
+        <p>Chọn sản phẩm trong bảng để xem chi tiết...</p>
+        <div class="btn-group">
+          <button class="cart-btn" disabled>Thêm vào giỏ hàng</button>
+          <button class="buy-btn" disabled>Mua ngay</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" aria-label="Đánh giá khách hàng">
+      <h2>Đánh giá từ khách hàng</h2>
+      <div class="testimonial-item">
+        “Dịch vụ rất chuyên nghiệp, sản phẩm chất lượng!”<br />
+        <div class="testimonial-author">— Nguyễn Văn A</div>
+      </div>
+      <div class="testimonial-item">
+        “Giao hàng nhanh, hỗ trợ tận tình, tôi rất hài lòng.”<br />
+        <div class="testimonial-author">— Trần Thị B</div>
+      </div>
+      <div class="testimonial-item">
+        “Sản phẩm đa dạng và giá cả hợp lý.”<br />
+        <div class="testimonial-author">— Lê C</div>
+      </div>
+    </section>
+
+    <!-- Review & Q&A -->
+    <section class="review-qna" aria-label="Đánh giá và Hỏi đáp">
+      <h2>Đánh giá và Hỏi đáp (Review & Q&A)</h2>
+      <div class="review">
+        <p><strong>Người dùng Hùng:</strong> Loa Bluetooth nghe rất hay, pin lâu.</p>
+      </div>
+      <div class="qna">
+        <p><strong>Q:</strong> Máy tính này có hỗ trợ cổng USB-C không?</p>
+        <p><strong>A:</strong> Vâng, máy tính hiện có đầy đủ kết nối USB-C, HDMI và Thunderbolt.</p>
+      </div>
+      <div class="review">
+        <p><strong>Thanh Hằng:</strong> Tôi rất hài lòng với điện thoại Iphone 18 Pro Max này.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Thông tin liên hệ nhanh -->
+  <footer class="contact-info" id="contact">
+    Hotline: <a href="tel:0123456789">0123456789</a> | Chat trực tuyến: 
+    <a href="https://zalo.me/0123456789" target="_blank" rel="noopener noreferrer">Zalo Công ty TNHH DHA</a> | 
+    <a href="https://m.me/CongtyTNHH-DHA" target="_blank" rel="noopener noreferrer">Messenger Công ty TNHH DHA</a><br />
+    Địa chỉ: Nguyễn Kiệm, Phường Hạnh Thông, TP. Hồ Chí Minh
+  </footer>
+
+  <!-- AI Agent Chatbot -->
+  <div id="chatbot-container" role="region" aria-label="Hỗ trợ khách hàng">
+    <div id="chatbot-header">
+      🤖 DHA Agent
+    </div>
+    <div id="chatbot-messages" aria-live="polite" aria-atomic="false">
+      <div class="message agent-message">Xin chào quý khách hàng tui có thể giúp được gì cho bạn <span aria-label="smile" role="img">😊</span></div>
+    </div>
+    <div id="chatbot-input-area">
+      <input type="text" id="chatbot-input" aria-label="Nhập câu hỏi của bạn" placeholder="Nhập câu hỏi..." autocomplete="off" />
+      <button id="chatbot-send" aria-label="Gửi câu hỏi">Gửi</button>
+    </div>
+  </div>
+
+<script>
+  // Sản phẩm chi tiết
+  const productInfo = {
+    "Loa Bluetooth": {
+      description: "Loa Bluetooth công suất lớn, âm thanh sống động, pin dùng liên tục 10 giờ.",
+      specs: [
+        "Công suất: 20W",
+        "Kích thước: 15x10x8 cm",
+        "Kết nối Bluetooth 5.0",
+        "Thời gian chơi nhạc: 10 giờ"
+      ],
+      price: "2,300,000 đồng"
+    },
+    "Máy Tính": {
+      description: "Máy tính hiệu năng cao phù hợp công việc văn phòng và giải trí.",
+      specs: [
+        "CPU: Intel Core i7 thế hệ mới",
+        "RAM: 16GB DDR4",
+        "Ổ cứng: SSD 512GB",
+        "Màn hình: 15.6 inch FullHD"
+      ],
+      price: "50,500,000 đồng"
+    },
+    "Điện thoại Iphone 18 Pro Max": {
+      description: "Điện thoại cao cấp hiệu năng mạnh, camera chụp hình xuất sắc.",
+      specs: [
+        "Màn hình: OLED 6.7 inch",
+        "Chip: A19 Bionic",
+        "RAM: 12GB",
+        "Camera: 108MP + 3 camera phụ"
+      ],
+      price: "72,000,000 đồng"
+    },
+    "Tai nghe": {
+      description: "Tai nghe chất lượng âm thanh sống động, thiết kế hiện đại.",
+      specs: [
+        "Kết nối Bluetooth 5.0",
+        "Thời gian sử dụng: 8 giờ",
+        "Chống ồn chủ động"
+      ],
+      price: "3,000,000 đồng"
+    },
+    "Bàn phím": {
+      description: "Bàn phím cơ chất lượng, trải nghiệm gõ phím tuyệt vời.",
+      specs:
